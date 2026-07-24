@@ -1,0 +1,17 @@
+{
+  "name": "st-marys-mukuru-stk-server",
+  "version": "1.0.0",
+  "description": "STK Push server for St. Mary's Mukuru Kwa Njenga Parish giving page",
+  "main": "daraja-stk-server.js",
+  "scripts": {
+    "start": "node daraja-stk-server.js"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "axios": "^1.7.2",
+    "dotenv": "^16.4.5"
+  }
+}
