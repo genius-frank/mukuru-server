@@ -34,8 +34,10 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
+const cors = require('cors');
 
 const app = express();
+app.use(cors()); // the website lives on a different domain than this server — without this, the browser silently blocks every request between them
 app.use(express.json());
 
 const {
@@ -120,6 +122,17 @@ app.post('/stk-push', async (req, res) => {
 app.post('/stk-callback', (req, res) => {
   const result = req.body && req.body.Body && req.body.Body.stkCallback;
   console.log('STK callback received:', JSON.stringify(result, null, 2));
+
+  // TODO, when you're ready to go further than this starter:
+  //  - Match result.CheckoutRequestID to the request you sent out
+  //  - result.ResultCode === 0 means success; anything else means
+  //    the donor cancelled or it failed
+  //  - On success, result.CallbackMetadata.Item has the amount,
+  //    receipt number, phone number, and transaction date
+  //  - Store that somewhere (a small database, even a spreadsheet
+  //    API), and let the website know — either the donor's browser
+  //    polls a /status/:checkoutRequestId endpoint you add, or you
+  //    push it live over a websocket
 
   res.json({ ResultCode: 0, ResultDesc: 'Received' });
 });
